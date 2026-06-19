@@ -1,0 +1,34 @@
+# checkpoints & model weights
+*.pth
+*.pt
+*.ckpt
+checkpoints/
+
+# shell scripts
+*.sh
+
+# datasets & data indices
+*.csv
+/data/
+datasets/data/
+
+# experiment artifacts
+experiments/
+train_log/
+results/
+*.log
+
+# python cache
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# environment
+.venv/
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
