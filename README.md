@@ -17,8 +17,11 @@ late-fusion baseline, and the learned cross-modal fusion variants analyzed in th
 ## Architecture
 
 Each modality is processed by an **independent** pipeline:
+
+```
 Input (T frames) -> TSM-ResNet-18 backbone -> GestFormer-style temporal encoder
--> FC classifier -> per-modality logits z_m
+                 -> FC classifier -> per-modality logits z_m
+```
 
 The temporal encoder (6 layers) follows the GestFormer design and, per layer, applies:
 1. a wavelet-based SSL module (2D DWT -> per-subband depthwise conv -> inverse DWT),
@@ -29,6 +32,8 @@ with sinusoidal positional encoding. The modalities are combined only at a final
 **late-fusion** step (a simple average of softmax probabilities, no learned parameters).
 
 ## Repository structure
+
+```
 src_tsmformer/
 ├── models/
 │   ├── temporal.py            # main model (TSM backbone + temporal encoder)
@@ -49,6 +54,7 @@ src_tsmformer/
 ├── train_perclass.py          # per-class logit weighting fusion
 ├── measure_multiseed.py       # reliable multi-seed test-accuracy measurement
 └── main.py
+```
 
 > Checkpoints, shell scripts, and dataset files are **not** included.
 
