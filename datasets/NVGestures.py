@@ -13,7 +13,7 @@ from pathlib import Path
 
 class NVGesture(Dataset):
     """NVGesture Dataset class"""
-    def __init__(self, configer, path, split="train", data_type="depth", transforms=None, n_frames=40, optical_flow=False):
+    def __init__(self, configer, path, split="train", data_type="depth", transforms=None, n_frames=40, optical_flow=False, full_train=True):
         """Constructor method for NVGesture Dataset class
 
         Args:
@@ -37,8 +37,29 @@ class NVGesture(Dataset):
         if self.data_type in ["normal", "normals"] and self.optical_flow:
             raise NotImplementedError("Optical flow for normals image is not supported.")
 
+        # Split file selection.
+        #   full_train=True  : official 1,050-sequence training list (unimodal backbones,
+        #                      reproduces the protocol used for Tables II-IV)
+        #   full_train=False : subject-disjoint partition of the official training list,
+        #                      holding out subjects 7 and 15 (149 seqs) for model selection
+        #                      in the fusion experiments; 901 seqs remain for training.
+        # The official train/test lists are already subject-disjoint.
+        # Priority: configer value (if present) > constructor argument.
+        # Scripts that bypass Configer pass full_train explicitly.
+        if configer is not None:
+            _ft = configer.get('data', 'full_train')
+            if _ft is not None:          # Configer returns None for missing keys
+                full_train = bool(_ft)
+
+        if self.split == "train":
+            _name = "train" if full_train else "trainsub"
+        elif self.split == "val":
+            _name = "train" if full_train else "val"
+        else:
+            _name = "test"
+
         file_lists = self.dataset_path / \
-                     "nvgesture_{}_correct_cvpr2016_v2.lst".format(self.split if self.split == "train" else "test")
+                     "nvgesture_{}_correct_cvpr2016_v2.lst".format(_name)
 
         self.data_list = list()
         load_split_nvgesture(file_with_split=str(file_lists), list_split=self.data_list)

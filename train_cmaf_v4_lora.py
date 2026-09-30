@@ -170,6 +170,8 @@ class CMAFTrainer:
         batch_size = self.cfg['data']['batch_size']
         n_frames   = self.cfg['data']['n_frames']
         workers    = self.cfg['solver']['workers']
+        # Subject-disjoint validation for fusion model selection (see datasets/NVGestures.py)
+        full_train = self.cfg['data'].get('full_train', True)
 
         if self.dataset == 'briareo':
             Dataset = Briareo
@@ -193,7 +195,8 @@ class CMAFTrainer:
             train_loader = DataLoader(
                 Dataset(None, data_path, split='train',
                         data_type=dt, transforms=train_tf,
-                        n_frames=n_frames, optical_flow=optf),
+                        n_frames=n_frames, optical_flow=optf,
+                        full_train=full_train),
                 batch_size=batch_size, shuffle=True, drop_last=True,
                 num_workers=workers, pin_memory=True,
                 worker_init_fn=worker_init_fn)
@@ -201,7 +204,8 @@ class CMAFTrainer:
             val_loader = DataLoader(
                 Dataset(None, data_path, split='val',
                         data_type=dt, transforms=val_tf,
-                        n_frames=n_frames, optical_flow=optf),
+                        n_frames=n_frames, optical_flow=optf,
+                        full_train=full_train),
                 batch_size=batch_size, shuffle=False, drop_last=True,
                 num_workers=workers, pin_memory=True,
                 worker_init_fn=worker_init_fn)
@@ -209,7 +213,8 @@ class CMAFTrainer:
             test_loader = DataLoader(
                 Dataset(None, data_path, split='test',
                         data_type=dt, transforms=val_tf,
-                        n_frames=n_frames, optical_flow=optf),
+                        n_frames=n_frames, optical_flow=optf,
+                        full_train=full_train),
                 batch_size=1, shuffle=False, drop_last=True,
                 num_workers=workers, pin_memory=True,
                 worker_init_fn=worker_init_fn)
