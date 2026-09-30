@@ -20,10 +20,16 @@ from utils.average_meter import AverageMeter
 import time
 try:
     from torchstat import stat
+except ImportError:
+    stat = None
+try:
     from torchinfo import summary   ## 원본 : import torchsummary -> DWT 모듈과 호환성 문제 발생
+except ImportError:
+    summary = None
+try:
     from fvcore.nn import FlopCountAnalysis
 except ImportError:
-    stat = torchsummary = FlopCountAnalysis = None
+    FlopCountAnalysis = None
 
 
 # Setting seeds
