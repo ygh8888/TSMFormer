@@ -1,0 +1,121 @@
+{
+    "name": "CMAF Gesture Recognition",
+    "dataset": "Briareo",
+    "epochs": 50,
+    "data": {
+        "data_path": "/data/Briareo",
+        "n_classes": 12,
+        "n_frames": 40,
+        "batch_size": 8
+    },
+    "checkpoints": {
+        "save_name": "cmaf_briareo",
+        "save_dir": "./experiments/BL4_cmaf/Briareo/checkpoints/",
+        "tb_path": "./experiments/BL4_cmaf/Briareo/train_log"
+    },
+    "solver": {
+        "base_lr": 0.0001,
+        "weight_decay": 0.0001,
+        "decay_steps": [
+            30,
+            40
+        ],
+        "workers": 4
+    },
+    "cmaf": {
+        "n_heads": 4,
+        "dropout": 0.1,
+        "modalities": [
+            {
+                "name": "rgb",
+                "data_type": "rgb",
+                "optical_flow": false,
+                "in_planes": 3,
+                "backbone": "resnet",
+                "n_classes": 12,
+                "n_frames": 40,
+                "n_head": 8,
+                "ff_size": 1024,
+                "n_module": 6,
+                "dropout2d": 0.1,
+                "dropout1d": 0.5,
+                "use_tsm": true,
+                "use_mspe": true,
+                "modality_id": 0,
+                "checkpoint": "experiments/BL3_mspe/Briareo/checkpoints/Briareo/best_mspe_briareo_rgb.pth"
+            },
+            {
+                "name": "depth",
+                "data_type": "depth",
+                "optical_flow": false,
+                "in_planes": 1,
+                "backbone": "resnet",
+                "n_classes": 12,
+                "n_frames": 40,
+                "n_head": 8,
+                "ff_size": 1024,
+                "n_module": 6,
+                "dropout2d": 0.1,
+                "dropout1d": 0.5,
+                "use_tsm": true,
+                "use_mspe": true,
+                "modality_id": 1,
+                "checkpoint": "experiments/BL3_mspe/Briareo/checkpoints/Briareo/best_mspe_briareo_depth.pth"
+            },
+            {
+                "name": "ir",
+                "data_type": "ir",
+                "optical_flow": false,
+                "in_planes": 1,
+                "backbone": "resnet",
+                "n_classes": 12,
+                "n_frames": 40,
+                "n_head": 8,
+                "ff_size": 1024,
+                "n_module": 6,
+                "dropout2d": 0.1,
+                "dropout1d": 0.5,
+                "use_tsm": true,
+                "use_mspe": true,
+                "modality_id": 2,
+                "checkpoint": "experiments/BL3_mspe/Briareo/checkpoints/Briareo/best_mspe_briareo_ir.pth"
+            },
+            {
+                "name": "normal",
+                "data_type": "normal",
+                "optical_flow": false,
+                "in_planes": 3,
+                "backbone": "resnet",
+                "n_classes": 12,
+                "n_frames": 40,
+                "n_head": 8,
+                "ff_size": 1024,
+                "n_module": 6,
+                "dropout2d": 0.1,
+                "dropout1d": 0.5,
+                "use_tsm": true,
+                "use_mspe": true,
+                "modality_id": 3,
+                "checkpoint": "experiments/BL3_mspe/Briareo/checkpoints/Briareo/best_mspe_briareo_normal.pth"
+            },
+            {
+                "name": "optflow",
+                "data_type": "depth",
+                "optical_flow": true,
+                "in_planes": 2,
+                "backbone": "resnet",
+                "n_classes": 12,
+                "n_frames": 40,
+                "n_head": 8,
+                "ff_size": 1024,
+                "n_module": 6,
+                "dropout2d": 0.1,
+                "dropout1d": 0.5,
+                "use_tsm": true,
+                "use_mspe": true,
+                "modality_id": 4,
+                "checkpoint": "experiments/BL3_mspe/Briareo/checkpoints/Briareo/best_mspe_briareo_optflow.pth"
+            }
+        ]
+    }
+}

@@ -1,0 +1,126 @@
+{
+    "name": "CMAF Gesture Recognition",
+    "dataset": "NVGestures",
+    "epochs": 50,
+    "data": {
+        "data_path": "/data/NVGesture",
+        "n_classes": 25,
+        "n_frames": 40,
+        "batch_size": 8,
+        "full_train": false
+    },
+    "checkpoints": {
+        "save_name": "cmaf_v4_nvgestures",
+        "save_dir": "./experiments/BL4_cmaf_v4/NVGestures/checkpoints/",
+        "tb_path": "./experiments/BL4_cmaf_v4/NVGestures/train_log"
+    },
+    "solver": {
+        "base_lr": 0.0001,
+        "weight_decay": 0.0001,
+        "decay_steps": [
+            30,
+            40
+        ],
+        "workers": 4
+    },
+    "cmaf": {
+        "n_heads": 4,
+        "dropout": 0.3,
+        "modalities": [
+            {
+                "name": "color",
+                "data_type": "color",
+                "optical_flow": false,
+                "in_planes": 3,
+                "backbone": "resnet",
+                "n_classes": 25,
+                "n_frames": 40,
+                "n_head": 8,
+                "ff_size": 1024,
+                "n_module": 6,
+                "dropout2d": 0.1,
+                "dropout1d": 0.5,
+                "use_tsm": true,
+                "use_mspe": true,
+                "modality_id": 0,
+                "checkpoint": "experiments/BL3_mspe/NVGestures/checkpoints/NVGestures/best_mspe_nvgestures_color.pth"
+            },
+            {
+                "name": "depth",
+                "data_type": "depth",
+                "optical_flow": false,
+                "in_planes": 1,
+                "backbone": "resnet",
+                "n_classes": 25,
+                "n_frames": 40,
+                "n_head": 8,
+                "ff_size": 1024,
+                "n_module": 6,
+                "dropout2d": 0.1,
+                "dropout1d": 0.5,
+                "use_tsm": true,
+                "use_mspe": true,
+                "modality_id": 1,
+                "checkpoint": "experiments/BL3_mspe/NVGestures/checkpoints/NVGestures/best_mspe_nvgestures_depth.pth"
+            },
+            {
+                "name": "ir",
+                "data_type": "ir",
+                "optical_flow": false,
+                "in_planes": 1,
+                "backbone": "resnet",
+                "n_classes": 25,
+                "n_frames": 40,
+                "n_head": 8,
+                "ff_size": 1024,
+                "n_module": 6,
+                "dropout2d": 0.1,
+                "dropout1d": 0.5,
+                "use_tsm": true,
+                "use_mspe": true,
+                "modality_id": 2,
+                "checkpoint": "experiments/BL3_mspe/NVGestures/checkpoints/NVGestures/best_mspe_nvgestures_ir.pth"
+            },
+            {
+                "name": "normal",
+                "data_type": "normal",
+                "optical_flow": false,
+                "in_planes": 3,
+                "backbone": "resnet",
+                "n_classes": 25,
+                "n_frames": 40,
+                "n_head": 8,
+                "ff_size": 1024,
+                "n_module": 6,
+                "dropout2d": 0.1,
+                "dropout1d": 0.5,
+                "use_tsm": true,
+                "use_mspe": true,
+                "modality_id": 3,
+                "checkpoint": "experiments/BL3_mspe/NVGestures/checkpoints/NVGestures/best_mspe_nvgestures_normal.pth"
+            },
+            {
+                "name": "optflow",
+                "data_type": "depth",
+                "optical_flow": true,
+                "in_planes": 2,
+                "backbone": "resnet",
+                "n_classes": 25,
+                "n_frames": 40,
+                "n_head": 8,
+                "ff_size": 1024,
+                "n_module": 6,
+                "dropout2d": 0.1,
+                "dropout1d": 0.5,
+                "use_tsm": true,
+                "use_mspe": true,
+                "modality_id": 4,
+                "checkpoint": "experiments/BL3_mspe/NVGestures/checkpoints/NVGestures/best_mspe_nvgestures_optflow.pth"
+            }
+        ],
+        "n_bottleneck": 4,
+        "n_layers": 2,
+        "dff": 1024,
+        "init_fusion_logit": -1.0
+    }
+}

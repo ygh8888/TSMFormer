@@ -24,7 +24,7 @@ from tensorboardX import SummaryWriter
 
 from utils.configer import Configer
 from models.temporal import GestureTransoformer
-from models.perclass_fusion import build_perclass
+from models.fusion import build_cmaf
 
 # 데이터셋 임포트
 from datasets.Briareo import Briareo
@@ -74,7 +74,6 @@ def load_single_modal_model(cfg: dict, device) -> nn.Module:
     # backbone freeze: CMAF 학습 시 backbone 파라미터 고정
     for param in model.parameters():
         param.requires_grad = False
-
     model.eval()
     return nn.DataParallel(model).to(device)
 
@@ -98,16 +97,20 @@ class CMAFTrainer:
             print(f"  Loaded: {m_cfg['name']} ({m_cfg['checkpoint']})")
 
         # ── CMAF 모듈 초기화 ───────────────────────────────────────────
-        self.fusion = build_perclass(
+        modality_ids = [m['modality_id'] for m in self.modalities]
+        self.cmaf = build_cmaf(
             n_modalities=len(self.modalities),
             n_classes=self.n_classes,
+            d_model=512,
+            n_heads=self.cfg['cmaf'].get('n_heads', 4),
+            dropout=self.cfg['cmaf'].get('dropout', 0.1),
+            modality_ids=modality_ids,
+            total_modalities=5,
         ).to(device)
 
-        # ── 옵티마이저: per-class W (125개)만 ──
-        n_w = sum(p.numel() for p in self.fusion.parameters())
-        print(f"  Optimizer params: per-class W = {n_w}")
+        # ── 옵티마이저: CMAF 파라미터만 ───────────────────────────────
         self.optimizer = torch.optim.AdamW(
-            self.fusion.parameters(),
+            self.cmaf.parameters(),
             lr=self.cfg['solver']['base_lr'],
             weight_decay=self.cfg['solver']['weight_decay'],
         )
@@ -116,9 +119,7 @@ class CMAFTrainer:
             milestones=self.cfg['solver']['decay_steps'],
             gamma=0.1,
         )
-        # PerClassFusion returns log-probabilities (see models/perclass_fusion.py),
-        # so NLLLoss is the matching objective.
-        self.criterion = nn.NLLLoss()
+        self.criterion = nn.CrossEntropyLoss()
 
         # ── TensorBoard ───────────────────────────────────────────────
         save_name = self.cfg['checkpoints']['save_name']
@@ -143,8 +144,6 @@ class CMAFTrainer:
         batch_size = self.cfg['data']['batch_size']
         n_frames   = self.cfg['data']['n_frames']
         workers    = self.cfg['solver']['workers']
-        # Subject-disjoint validation for fusion model selection (see datasets/NVGestures.py)
-        full_train = self.cfg['data'].get('full_train', True)
 
         if self.dataset == 'briareo':
             Dataset = Briareo
@@ -168,8 +167,7 @@ class CMAFTrainer:
             train_loader = DataLoader(
                 Dataset(None, data_path, split='train',
                         data_type=dt, transforms=train_tf,
-                        n_frames=n_frames, optical_flow=optf,
-                        full_train=full_train),
+                        n_frames=n_frames, optical_flow=optf),
                 batch_size=batch_size, shuffle=True, drop_last=True,
                 num_workers=workers, pin_memory=True,
                 worker_init_fn=worker_init_fn)
@@ -177,8 +175,7 @@ class CMAFTrainer:
             val_loader = DataLoader(
                 Dataset(None, data_path, split='val',
                         data_type=dt, transforms=val_tf,
-                        n_frames=n_frames, optical_flow=optf,
-                        full_train=full_train),
+                        n_frames=n_frames, optical_flow=optf),
                 batch_size=batch_size, shuffle=False, drop_last=True,
                 num_workers=workers, pin_memory=True,
                 worker_init_fn=worker_init_fn)
@@ -186,8 +183,7 @@ class CMAFTrainer:
             test_loader = DataLoader(
                 Dataset(None, data_path, split='test',
                         data_type=dt, transforms=val_tf,
-                        n_frames=n_frames, optical_flow=optf,
-                        full_train=full_train),
+                        n_frames=n_frames, optical_flow=optf),
                 batch_size=1, shuffle=False, drop_last=True,
                 num_workers=workers, pin_memory=True,
                 worker_init_fn=worker_init_fn)
@@ -201,23 +197,22 @@ class CMAFTrainer:
         print(f"Test  batches: {len(self.test_loaders[0])}")
 
     def _extract_features(self, batch_list):
-        """각 모달리티 모델에서 tokens + unimodal_logits 추출 (no_grad)."""
-        token_list = []
-        uni_logits = []
+        """각 모달리티 모델에서 feature 추출 (no_grad)."""
+        features = []
         for i, (model, batch) in enumerate(zip(self.modal_models, batch_list)):
             inputs = batch[0].to(self.device)
             with torch.no_grad():
-                tok, ulog = model.module.extract_tokens(inputs)
-            token_list.append(tok)
-            uni_logits.append(ulog)
-        return token_list, uni_logits
+                # DataParallel 내부의 extract_feature 호출
+                feat = model.module.extract_feature(inputs)
+            features.append(feat)
+        return features
 
     def _run_epoch(self, loaders, split='train'):
         is_train = (split == 'train')
         if is_train:
-            self.fusion.train()
+            self.cmaf.train()
         else:
-            self.fusion.eval()
+            self.cmaf.eval()
 
         correct = 0
         total   = 0
@@ -233,33 +228,9 @@ class CMAFTrainer:
                 if labels.dim() > 1:
                     labels = labels.squeeze(-1)
 
-                token_list, uni_logits = self._extract_features(batch_list)
-                logits   = self.fusion(uni_logits)
+                features = self._extract_features(batch_list)
+                logits   = self.cmaf(features)
                 loss     = self.criterion(logits, labels)
-                if is_train:
-                    lam1 = self.cfg['cmaf'].get('lambda_m',  0.3)
-                    lam2 = self.cfg['cmaf'].get('lambda_kd', 0.5)
-                    T    = self.cfg['cmaf'].get('kd_temp',   4.0)
-                    # P1: 모달별 CE (LoRA backbone 개별 판별력 유지)
-                    if lam1 > 0:
-                        # uni_logits are raw logits -> use cross_entropy here,
-                        # since self.criterion is NLLLoss (fusion outputs log-probs).
-                        loss_m = sum(torch.nn.functional.cross_entropy(u, labels)
-                                     for u in uni_logits) / len(uni_logits)
-                        loss = loss + lam1 * loss_m
-                    # P2: 앙상블->약한모달 KD (color=0, ir=2)
-                    if lam2 > 0:
-                        weak_idx = self.cfg['cmaf'].get('kd_weak_idx', [0, 2])
-                        with torch.no_grad():
-                            ens_soft = torch.nn.functional.softmax(
-                                torch.stack(uni_logits).mean(0) / T, dim=1)
-                        loss_kd = sum(
-                            torch.nn.functional.kl_div(
-                                torch.nn.functional.log_softmax(
-                                    uni_logits[i] / T, dim=1),
-                                ens_soft, reduction='batchmean') * (T ** 2)
-                            for i in weak_idx) / len(weak_idx)
-                        loss = loss + lam2 * loss_kd
 
                 if is_train:
                     self.optimizer.zero_grad()
@@ -293,16 +264,17 @@ class CMAFTrainer:
 
             train_acc, train_loss = self._run_epoch(self.train_loaders, 'train')
             val_acc,   val_loss   = self._run_epoch(self.val_loaders,   'val')
+            test_acc,  test_loss  = self._run_epoch(self.test_loaders,  'test')
 
             self.scheduler.step()
 
             self.writer.add_scalar('train_accuracy', train_acc, self.iters)
             self.writer.add_scalar('val_accuracy',   val_acc,   self.iters)
+            self.writer.add_scalar('test_accuracy',  test_acc,  self.iters)
             self.writer.add_scalar('train_loss',     train_loss, self.iters)
             self.writer.add_scalar('val_loss',       val_loss,   self.iters)
 
-            print(f"  train={train_acc:.4f}  val={val_acc:.4f}")
-            print(f"  weights: {self.fusion.weight_report()}")
+            print(f"  train={train_acc:.4f}  val={val_acc:.4f}  test={test_acc:.4f}")
 
             # best model 저장
             if val_acc > self.best_accuracy:
@@ -310,7 +282,7 @@ class CMAFTrainer:
                 ckpt_path = save_dir / f"best_{save_name}.pth"
                 torch.save({
                     'epoch':      epoch + 1,
-                    'state_dict': self.fusion.state_dict(),
+                    'state_dict': self.cmaf.state_dict(),
                     'optimizer':  self.optimizer.state_dict(),
                     'accuracy':   val_acc,
                 }, str(ckpt_path))
@@ -318,16 +290,6 @@ class CMAFTrainer:
 
         self.writer.close()
         print(f"\nBest val accuracy: {self.best_accuracy:.4f}")
-
-        # 학습 종료 후 best 체크포인트로 test 1회
-        best_ckpt = save_dir / f"best_{save_name}.pth"
-        if best_ckpt.exists():
-            print(f"\nLoading best checkpoint for final test: {best_ckpt}")
-            ck = torch.load(str(best_ckpt), map_location=self.device, weights_only=False)
-            self.fusion.load_state_dict(ck['state_dict'])
-            test_acc, test_loss = self._run_epoch(self.test_loaders, 'test')
-            print(f"  FINAL TEST: acc={test_acc:.4f}  (best val={self.best_accuracy:.4f})")
-            print(f"  weights: {self.fusion.weight_report()}")
 
 
 if __name__ == '__main__':
