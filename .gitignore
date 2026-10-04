@@ -32,3 +32,8 @@ env/
 # OS
 .DS_Store
 Thumbs.db
+
+# runtime-generated seed configs
+hyperparameters/_runtime/
+*.bak
+*.seedbak

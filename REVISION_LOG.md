@@ -214,3 +214,43 @@ Briareo는 상보성이 거의 없음(Q>0.85, 여지 1.04pp)이 확인되어 기
   - NVGesture: 상보성은 있으나 **frozen feature + 소규모 데이터**로 도달 불가
 
  수정은 Table V 재실험 결과 확정 후 최종화할 것.
+
+---
+
+## 3.8 Phase 1 2단계 — fusion 다중 시드 (NVGesture, 15/21 완료)
+
+: 901 train / 149 val (subject-disjoint) / 482 test, 재학습 백본(BL5_revision).
+**late fusion 기준선 85.68%** (이 프로토콜 기준. 논문 본문 89.63%는 공식 프로토콜 값).
+
+| 변형 | 시드 | 평균 ± 표준편차 | vs 기준선 | MSPE |
+|---|---|---|---|---|
+| Per-class weighting | 5 | **84.77 ± 0.11** | −0.91 pp | off |
+| LoRA ensemble (P0) | 5 | **80.00 ± 1.16** | −5.68 pp | off |
+| Bottleneck + stronger input | 5 | **73.90 ± 0.82** | −11.78 pp | off |
+| Bottleneck (MBT+gate) | — | 미실행 (아래 참조) | — | **on** |
+| Dense cross-attention | — | 미실행 (아래 참조) | — | **on** |
+
+### 결과 해석 — 논문 주장이 강화됨
+
+    프로토콜에서는 per-class가 late fusion과 **동일**(89.63 = 89.63), LoRA가 근소하게 아래(89.42)였으나,
+apt update && apt install openssh-server -y 않은 validation에서는 **세 변형 모두 명확히 아래**이며 시드 변동(σ ≤ 1.16)보다 격차가 훨씬 크다.
+ R1-2가 지적한 "주장이 증거보다 강하다"를 더 강한 증거로 충족.
+
+**과적합의 직접 증거**: `mbt_bl2in`은 val 98.95~99.52%인데 test 72.61~74.69% (**격차 약 25 pp**).
+per-class(약 8 pp), LoRA(약 10 pp)와 대비되며, "소규모 데이터에서 파라미터화된 fusion이 과적합한다"는
+apt update && apt install openssh-server -y        주장에 직접 근거가 된다.
+
+### mbt_gate / dense 미실행 사유 (S-10)
+
+ config만 `use_mspe=True`(modality-specific positional encoding)로 설정되어 있어,
+`use_mspe=False`로 재학습한 백본에서 `modality_embedding.weight` 키 부재로 로드 실패.
+
+**중요 — 논문 각주 1 정정 필요**: 각주는 MSPE를 "탐색했으나 다루지 않는다"고 서술하나,
+ **Table V의 dense(80.29%)와 MBT+gate(85.89%) 두 행이 MSPE를 켠 상태로 실험됨.**
+ R1-12(아키텍처 세부 불충분)와 직결. 리비전에서 Table V에 MSPE 사용 여부를 명시하고
+#
+apt update && apt install openssh-server -y 정정할 것.
+
+**실험 대응**: 두 변형은 기존 단일 실행 결과를 유지(C안). 근거는 효과 크기 —
+dense −9.34 pp, MBT −3.74 pp(원 프로토콜)로, 접전 변형들에서 측정된 시드 변동(σ ≤ 1.16 pp)보다
+ 자릿수 이상 크다. 답변서에 반복 횟수 차등의 근거로 기술.

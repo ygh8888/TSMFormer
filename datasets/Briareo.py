@@ -17,7 +17,7 @@ from datasets.utils.utils_briareo import from_json_to_list
 
 class Briareo(Dataset):
     """Briareo Dataset class"""
-    def __init__(self, configer, path, split="train", data_type='depth', transforms=None, n_frames=30, optical_flow=False):
+    def __init__(self, configer, path, split="train", data_type='depth', transforms=None, n_frames=30, optical_flow=False, full_train=True):
         """Constructor method for Briareo Dataset class
 
         Args:
@@ -29,6 +29,8 @@ class Briareo(Dataset):
             optical_flow (bool, optional): Flag to choose if calculate optical flow or not
 
         """
+        # full_train is accepted for API compatibility with NVGestures and ignored:
+        # Briareo ships an official validation split, so no re-partitioning is needed.
         super().__init__()
 
         self.dataset_path = Path(path)
