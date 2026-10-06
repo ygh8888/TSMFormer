@@ -16,10 +16,11 @@ LABEL = {
 
 # 로그에서 최종 test 정확도를 뽑는다. 스크립트마다 표기가 달라 여러 패턴 시도.
 PATTERNS = [
-    r'FINAL TEST:\s*acc=([0-9.]+)',          # train_perclass / cmaf 계열 공통
-    r'Test\s*(?:acc|accuracy)\s*[:=]\s*([0-9.]+)',
-    r'Accuracy\s*[:=]\s*([0-9.]+)',
+    r'FINAL TEST:\s*acc=([0-9.]+)',   # train_perclass / train_cmaf_v4 계열
 ]
+# train_cmaf.py는 FINAL TEST를 출력하지 않고 epoch별 train/val/test만 기록한다.
+# 이 경우 best val epoch의 test를 사용한다.
+EPOCH_PATTERN = r'train=([0-9.]+)\s+val=([0-9.]+)\s+test=([0-9.]+)'
 VAL_PATTERN = r'Best val accuracy:\s*([0-9.]+)'
 
 def extract(path):
@@ -29,6 +30,12 @@ def extract(path):
         vals += re.findall(pat, txt, re.I)
         if vals: break
     if not vals:
+        rows = re.findall(EPOCH_PATTERN, txt)
+        if rows:
+            vs = [float(v) for _, v, _ in rows]
+            ts = [float(t) for _, _, t in rows]
+            bi = max(range(len(vs)), key=lambda i: vs[i])
+            return ts[bi]*100, vs[bi]*100
         return None, None
     v = float(vals[-1]);  v = v*100 if v <= 1.0 else v
     mv = re.findall(VAL_PATTERN, txt, re.I)

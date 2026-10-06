@@ -254,3 +254,70 @@ apt update && apt install openssh-server -y 정정할 것.
 **실험 대응**: 두 변형은 기존 단일 실행 결과를 유지(C안). 근거는 효과 크기 —
 dense −9.34 pp, MBT −3.74 pp(원 프로토콜)로, 접전 변형들에서 측정된 시드 변동(σ ≤ 1.16 pp)보다
  자릿수 이상 크다. 답변서에 반복 횟수 차등의 근거로 기술.
+
+---
+
+## 3.10 Phase 1 최종 — 전 fusion 변형 다중 시드 완료 (26회)
+
+: NVGesture 901/149/482 (subject-disjoint), 재학습 백본 BL5_revision, 전 변형 MSPE off.
+Briareo는 데이터셋 공식 val 분할 + 기존 백본.
+
+| 데이터셋 | 변형 | 시드 | test mean ± s.d. | 기준선 대비 |
+|---|---|---|---|---|
+| NVGesture | **Late fusion** | — | **85.68** | — |
+| NVGesture | Per-class weighting | 5 | 84.77 ± 0.11 | −0.91 |
+| NVGesture | Bottleneck (MBT+gate) | 3 | 83.89 ± 0.63 | −1.79 |
+| NVGesture | LoRA ensemble (P0) | 5 | 80.00 ± 1.16 | −5.68 |
+| NVGesture | Dense cross-attention | 3 | 76.90 ± 1.20 | −8.78 |
+| NVGesture | Bottleneck + stronger input | 5 | 73.90 ± 0.82 | −11.78 |
+| Briareo | **Late fusion** | — | **99.31** | — |
+| Briareo | Per-class weighting | 5 | 98.26 ± 0.00 | −1.05 |
+
+**26회 실행에서 예외 없이 late fusion 미달.** 모든 s.d. ≤ 1.20으로 격차가 시드 변동보다 훨씬 크다.
+
+### 원 논문 대비 순위 변동 — 통제의 효과
+
+| 변형 | 원 논문 | 리비전 | 순위 |
+|---|---|---|---|
+| Per-class | 89.63 (1위) | 84.77 (1위) | 유지 |
+| Bottleneck (MBT+gate) | 85.89 (4위) | 83.89 (2위) | ↑2 |
+| LoRA ensemble | 89.42 (2위) | 80.00 (4위) | ↓2 |
+| Dense cross-attention | 80.29 (5위) | 76.90 (4위) | ↑1 |
+| **+ stronger input** | **87.71 (3위)** | **73.90 (5위)** | **↓2, 최하위** |
+
+ 논문에서 per-class와 MBT+gate의 격차는 3.74 pp였으나, 동일 백본·동일 분할로 통제하자
+0.88 pp로 좁혀졌다. 기존 격차의 상당 부분이 **백본 차이(BL3_mspe vs BL2_tsm)**에서 온 것.
+
+"+ stronger input"의 역전이 가장 극적이다. 원 논문에서는 MBT를 개선하는 변형(85.89 → 87.71)으로
+python3 -c ", 통제 조건에서는 MBT보다 **9.99 pp 낮다**. val 98.95~99.52% / test 72.61~74.69%의
+ 25 pp 격차가 과적합을 직접 보여준다.
+
+ 논문의 "under identical conditions" 서술은 원 실험에서 성립하지 않았으며,
+   리비전에서 비로소 참이 된다. R1-12 대응의 핵심.
+
+### 학습 궤적 (→ R1-5)
+
+`extract_trajectory.py`로 로그에서 추출. 추가 학습 없음.
+
+| | NVGesture | Briareo |
+|---|---|---|
+| 최적 epoch | **0** | **0** |
+| epoch 0 val | 92.36% | 98.61% |
+| 최종 epoch val | 77.64% | 98.15% |
+| **변화** | **−14.72 pp** | **−0.46 pp** |
+| 균일분포 L1 편차 | 0.034 → 0.796 (23.7x) | 0.046 → 1.002 (21.8x) |
+| 시드 간 s.d. | 0.000 ~ 0.002 | 0.000 ~ 0.002 |
+
+**가중치는 양 데이터셋에서 동일하게 균일에서 이탈하나(L1 20배 이상), 결과는 정반대.**
+NVGesture는 14.72 pp 폭락, Briareo는 0.46 pp 미동 → "Briareo는 low-sensitivity testbed"를
+ 입증. 양쪽 모두 최적이 epoch 0(= W=0 = late fusion)이며, 학습은 거기서 멀어지기만 한다.
+
+ 간 s.d.가 0.002 이하이므로 R1-5가 요구한 불확실성 밴드는 선 굵기보다 얇게 그려진다.
+ 약점이 아니라 **궤적 자체가 재현 가능하다는 증거**이며, 캡션에 명시할 것.
+(원 논문의 −5.00 pp 대비 −14.72 pp로, 오염되지 않은 validation에서 효과가 더 선명해졌다.)
+
+### 로그 파손 주의 (운영 메모)
+
+`run_stage2.sh`가 `> "$LOG"`로 리다이렉션하므로, 완료된 run을 재실행하면 **판정 전에 로그가
+.** dense 3회의 로그가 이 때문에 유실되어 재실행했다(수치는 동일하게 재현됨).
+ `.tmp`에 쓴 뒤 완료 시 `mv`하도록 수정됨.

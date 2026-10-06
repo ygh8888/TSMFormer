@@ -24,6 +24,10 @@ for m in d.get('cmaf', {}).get('modalities', []):
     name = m.get('name')
     new = f"{REV_DIR}/best_rev_nvgestures_{name}.pth"
     m['checkpoint'] = new
+    # BL5_revision backbones are trained without MSPE; disable it so that all
+    # fusion variants are compared on identical backbones (reviewer R1-12).
+    if m.get('use_mspe'):
+        m['use_mspe'] = False
     if not os.path.exists(new):
         missing.append(new)
 if missing:

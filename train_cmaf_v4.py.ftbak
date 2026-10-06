@@ -24,7 +24,7 @@ from tensorboardX import SummaryWriter
 
 from utils.configer import Configer
 from models.temporal import GestureTransoformer
-from models.fusion import build_cmaf
+from models.fusion_v4 import build_cmaf_v4
 
 # 데이터셋 임포트
 from datasets.Briareo import Briareo
@@ -97,15 +97,16 @@ class CMAFTrainer:
             print(f"  Loaded: {m_cfg['name']} ({m_cfg['checkpoint']})")
 
         # ── CMAF 모듈 초기화 ───────────────────────────────────────────
-        modality_ids = [m['modality_id'] for m in self.modalities]
-        self.cmaf = build_cmaf(
+        self.cmaf = build_cmaf_v4(
             n_modalities=len(self.modalities),
             n_classes=self.n_classes,
             d_model=512,
+            n_bottleneck=self.cfg['cmaf'].get('n_bottleneck', 4),
+            n_layers=self.cfg['cmaf'].get('n_layers', 2),
             n_heads=self.cfg['cmaf'].get('n_heads', 4),
-            dropout=self.cfg['cmaf'].get('dropout', 0.1),
-            modality_ids=modality_ids,
-            total_modalities=5,
+            dff=self.cfg['cmaf'].get('dff', 1024),
+            dropout=self.cfg['cmaf'].get('dropout', 0.3),
+            init_fusion_logit=self.cfg['cmaf'].get('init_fusion_logit', 0.0),
         ).to(device)
 
         # ── 옵티마이저: CMAF 파라미터만 ───────────────────────────────
@@ -144,8 +145,6 @@ class CMAFTrainer:
         batch_size = self.cfg['data']['batch_size']
         n_frames   = self.cfg['data']['n_frames']
         workers    = self.cfg['solver']['workers']
-        # Subject-disjoint validation for fusion model selection (datasets/NVGestures.py)
-        full_train = self.cfg['data'].get('full_train', True)
 
         if self.dataset == 'briareo':
             Dataset = Briareo
@@ -169,8 +168,7 @@ class CMAFTrainer:
             train_loader = DataLoader(
                 Dataset(None, data_path, split='train',
                         data_type=dt, transforms=train_tf,
-                        n_frames=n_frames, optical_flow=optf,
-                        full_train=full_train),
+                        n_frames=n_frames, optical_flow=optf),
                 batch_size=batch_size, shuffle=True, drop_last=True,
                 num_workers=workers, pin_memory=True,
                 worker_init_fn=worker_init_fn)
@@ -178,8 +176,7 @@ class CMAFTrainer:
             val_loader = DataLoader(
                 Dataset(None, data_path, split='val',
                         data_type=dt, transforms=val_tf,
-                        n_frames=n_frames, optical_flow=optf,
-                        full_train=full_train),
+                        n_frames=n_frames, optical_flow=optf),
                 batch_size=batch_size, shuffle=False, drop_last=True,
                 num_workers=workers, pin_memory=True,
                 worker_init_fn=worker_init_fn)
@@ -187,8 +184,7 @@ class CMAFTrainer:
             test_loader = DataLoader(
                 Dataset(None, data_path, split='test',
                         data_type=dt, transforms=val_tf,
-                        n_frames=n_frames, optical_flow=optf,
-                        full_train=full_train),
+                        n_frames=n_frames, optical_flow=optf),
                 batch_size=1, shuffle=False, drop_last=True,
                 num_workers=workers, pin_memory=True,
                 worker_init_fn=worker_init_fn)
@@ -202,15 +198,16 @@ class CMAFTrainer:
         print(f"Test  batches: {len(self.test_loaders[0])}")
 
     def _extract_features(self, batch_list):
-        """각 모달리티 모델에서 feature 추출 (no_grad)."""
-        features = []
+        """각 모달리티 모델에서 tokens + unimodal_logits 추출 (no_grad)."""
+        token_list = []
+        uni_logits = []
         for i, (model, batch) in enumerate(zip(self.modal_models, batch_list)):
             inputs = batch[0].to(self.device)
             with torch.no_grad():
-                # DataParallel 내부의 extract_feature 호출
-                feat = model.module.extract_feature(inputs)
-            features.append(feat)
-        return features
+                tok, ulog = model.module.extract_tokens(inputs)
+            token_list.append(tok)
+            uni_logits.append(ulog)
+        return token_list, uni_logits
 
     def _run_epoch(self, loaders, split='train'):
         is_train = (split == 'train')
@@ -233,8 +230,8 @@ class CMAFTrainer:
                 if labels.dim() > 1:
                     labels = labels.squeeze(-1)
 
-                features = self._extract_features(batch_list)
-                logits   = self.cmaf(features)
+                token_list, uni_logits = self._extract_features(batch_list)
+                logits   = self.cmaf(token_list, uni_logits)
                 loss     = self.criterion(logits, labels)
 
                 if is_train:
@@ -269,17 +266,16 @@ class CMAFTrainer:
 
             train_acc, train_loss = self._run_epoch(self.train_loaders, 'train')
             val_acc,   val_loss   = self._run_epoch(self.val_loaders,   'val')
-            test_acc,  test_loss  = self._run_epoch(self.test_loaders,  'test')
 
             self.scheduler.step()
 
             self.writer.add_scalar('train_accuracy', train_acc, self.iters)
             self.writer.add_scalar('val_accuracy',   val_acc,   self.iters)
-            self.writer.add_scalar('test_accuracy',  test_acc,  self.iters)
             self.writer.add_scalar('train_loss',     train_loss, self.iters)
             self.writer.add_scalar('val_loss',       val_loss,   self.iters)
 
-            print(f"  train={train_acc:.4f}  val={val_acc:.4f}  test={test_acc:.4f}")
+            print(f"  train={train_acc:.4f}  val={val_acc:.4f}")
+            print(f"  gate: {self.cmaf.gate_report()}")
 
             # best model 저장
             if val_acc > self.best_accuracy:
@@ -295,6 +291,16 @@ class CMAFTrainer:
 
         self.writer.close()
         print(f"\nBest val accuracy: {self.best_accuracy:.4f}")
+
+        # 학습 종료 후 best 체크포인트로 test 1회
+        best_ckpt = save_dir / f"best_{save_name}.pth"
+        if best_ckpt.exists():
+            print(f"\nLoading best checkpoint for final test: {best_ckpt}")
+            ck = torch.load(str(best_ckpt), map_location=self.device, weights_only=False)
+            self.cmaf.load_state_dict(ck['state_dict'])
+            test_acc, test_loss = self._run_epoch(self.test_loaders, 'test')
+            print(f"  FINAL TEST: acc={test_acc:.4f}  (best val={self.best_accuracy:.4f})")
+            print(f"  gate: {self.cmaf.gate_report()}")
 
 
 if __name__ == '__main__':

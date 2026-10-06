@@ -26,7 +26,9 @@ for entry in "${RUNS[@]}"; do
     LOG="logs_revision/stage2_${TAG}_s${S}.log"
 
     # 체크포인트 + 로그의 FINAL TEST 둘 다 있어야 완료로 간주
-    if [ -f "$CKPT" ] && grep -q "FINAL TEST" "$LOG" 2>/dev/null; then
+    # 완료 판정: FINAL TEST(perclass/cmaf_v4 계열) 또는
+    # "Best val accuracy"(train_cmaf.py 계열) 중 하나가 있으면 완료로 간주
+    if [ -f "$CKPT" ] && grep -qE "FINAL TEST|Best val accuracy" "$LOG" 2>/dev/null; then
       echo "[skip] ${TAG} seed=${S}"
       DONE=$((DONE+1)); continue
     fi
@@ -34,8 +36,9 @@ for entry in "${RUNS[@]}"; do
     RT=$(python3 make_seed_cfg.py "$CFG" "$S" "$TAG") || { echo "[cfg fail] $TAG $S"; FAIL=$((FAIL+1)); continue; }
 
     echo "########## ${TAG} seed=${S}  $(date '+%F %T')"
-    python "$SCRIPT" --hypes "$RT" --seed "$S" > "$LOG" 2>&1
+    python "$SCRIPT" --hypes "$RT" --seed "$S" > "${LOG}.tmp" 2>&1
     RC=$?
+    mv -f "${LOG}.tmp" "$LOG"
     if [ $RC -eq 0 ]; then
       DONE=$((DONE+1)); echo "  ok  $(date '+%F %T')"
       grep -E "Best|best|Test" "$LOG" | tail -3
