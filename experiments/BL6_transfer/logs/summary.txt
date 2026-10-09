@@ -1,0 +1,18 @@
+   briareo -> briareo    color  test  98.50 +- 0.20   n={'train': 936, 'val': 216, 'test': 288}
+   briareo -> briareo    depth  test  96.30 +- 0.20   n={'train': 936, 'val': 216, 'test': 288}
+   briareo -> briareo    ir     test  97.69 +- 0.20   n={'train': 936, 'val': 216, 'test': 288}
+   briareo -> nvgestures color  test   7.75 +- 0.52   n={'train': 901, 'val': 149, 'test': 482}
+   briareo -> nvgestures depth  test  14.25 +- 0.52   n={'train': 901, 'val': 149, 'test': 482}
+   briareo -> nvgestures ir     test  10.03 +- 0.32   n={'train': 901, 'val': 149, 'test': 482}
+nvgestures -> briareo    color  test  24.77 +- 1.00   n={'train': 936, 'val': 216, 'test': 288}
+nvgestures -> briareo    depth  test  49.65 +- 2.71   n={'train': 936, 'val': 216, 'test': 288}
+nvgestures -> briareo    ir     test  57.52 +- 0.87   n={'train': 936, 'val': 216, 'test': 288}
+nvgestures -> nvgestures color  test  69.99 +- 0.63   n={'train': 901, 'val': 149, 'test': 482}
+nvgestures -> nvgestures depth  test  79.94 +- 0.52   n={'train': 901, 'val': 149, 'test': 482}
+nvgestures -> nvgestures ir     test  52.70 +- 0.62   n={'train': 901, 'val': 149, 'test': 482}
+
+late fusion of probes (color+depth+ir), mean +- sd over seeds
+nvgestures -> nvgestures fusion  test  80.77 +- 1.18
+nvgestures -> briareo    fusion  test  62.73 +- 1.45
+   briareo -> nvgestures fusion  test  16.53 +- 0.24
+   briareo -> briareo    fusion  test  98.84 +- 0.20
