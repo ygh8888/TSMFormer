@@ -49,18 +49,18 @@ probabilities, with no learned parameters. The learned fusion variants replace t
 
 ```
 models/
- temporal.py              # main model (TSM backbone + temporal encoder)
- attention.py             # GestFormer-style encoder
- backbones/resnet_tsm.py  # TSM-ResNet-18 backbone
- fusion.py                # dense cross-attention fusion
- fusion_v4.py             # bottleneck (MBT) fusion with hybrid gate
- lora_inject.py           # LoRA adapters for backbone adaptation
- perclass_fusion.py       # per-class modality weighting
+|-- temporal.py              # main model (TSM backbone + temporal encoder)
+|-- attention.py             # GestFormer-style encoder
+|-- backbones/resnet_tsm.py  # TSM-ResNet-18 backbone
+|-- fusion.py                # dense cross-attention fusion
+|-- fusion_v4.py             # bottleneck (MBT) fusion with hybrid gate
+|-- lora_inject.py           # LoRA adapters for backbone adaptation
+`-- perclass_fusion.py       # per-class modality weighting
 datasets/                    # NVGesture / Briareo loaders, surface normals, optical flow
 hyperparameters/
- NVGestures/              # benchmark protocol and fusion configurations
- NVGestures_rev/          # controlled protocol backbones (901/149/482)
- Briareo/
+|-- NVGestures/              # benchmark protocol and fusion configurations
+|-- NVGestures_rev/          # controlled protocol backbones (901/149/482)
+`-- Briareo/
 splits/NVGestures/           # subject-disjoint train/validation lists (controlled protocol)
 main.py                      # unimodal training / testing (--phase train|test)
 cs.py                        # late fusion and modality-subset evaluation
