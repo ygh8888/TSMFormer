@@ -1,7 +1,7 @@
 #!/bin/bash
 # D안 2단계: fusion 변형 다중 시드 재학습 (R1-1, R1-2, R1-5)
 set -u
-cd /data/TSMFormer
+cd "$(dirname "$0")"
 mkdir -p logs_revision hyperparameters/_runtime
 
 SEEDS5="1994 2024 777 42 3407"

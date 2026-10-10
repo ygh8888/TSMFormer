@@ -37,3 +37,7 @@ Thumbs.db
 hyperparameters/_runtime/
 *.bak
 *.seedbak
+
+# internal notes and backups (kept locally, not published)
+REVISION_LOG.md
+*.ftbak

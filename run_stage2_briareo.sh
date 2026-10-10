@@ -3,7 +3,7 @@
 #   - 데이터셋 공식 val 분할 사용 → D안 재학습 불필요, 기존 백본 그대로
 #   - late fusion이 99.31%로 포화되어 변별력이 낮으므로 per-class만 반복
 set -u
-cd /data/TSMFormer
+cd "$(dirname "$0")"
 mkdir -p logs_revision hyperparameters/_runtime
 
 CFG="hyperparameters/Briareo/train_perclass.json"

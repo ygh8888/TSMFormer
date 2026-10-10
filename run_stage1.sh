@@ -1,5 +1,5 @@
 #!/bin/bash
-set -u; cd /data/TSMFormer; mkdir -p logs_revision
+set -u; cd "$(dirname "$0")"; mkdir -p logs_revision
 for m in depth ir normal optflow; do
   echo "##### $m $(date '+%F %T')"
   python main.py --hypes hyperparameters/NVGestures_rev/train_${m}_rev.json --phase train \
