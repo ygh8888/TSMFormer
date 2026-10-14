@@ -1,0 +1,120 @@
+/data/miniconda3/envs/hand_vision/lib/python3.10/site-packages/pytorch_wavelets/dtcwt/coeffs.py:7: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+  Optimizer params: per-class W = 125
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+
+[nvg / train]  n=901
+  unimodal_acc                       {'color': 100.0, 'depth': 99.89, 'ir': 99.89, 'normal': 99.67, 'optflow': 99.89}
+  late_fusion                        100.0
+  oracle                             100.0
+  all_correct                        99.33
+  all_agree                          99.33
+  any_modality_wrong                 0.67
+  lf_wrong_but_some_modality_right   0.0
+  mean_max_prob                      {'color': 1.0, 'depth': 0.999, 'ir': 1.0, 'normal': 0.999, 'optflow': 0.999}
+  late_fusion_without                {'color': 100.0, 'depth': 100.0, 'ir': 100.0, 'normal': 100.0, 'optflow': 100.0}
+
+[nvg / val]  n=149
+  unimodal_acc                       {'color': 72.48, 'depth': 90.6, 'ir': 81.21, 'normal': 87.25, 'optflow': 87.92}
+  late_fusion                        92.62
+  oracle                             97.99
+  all_correct                        55.7
+  all_agree                          55.7
+  any_modality_wrong                 44.3
+  lf_wrong_but_some_modality_right   5.37
+  mean_max_prob                      {'color': 0.926, 'depth': 0.968, 'ir': 0.932, 'normal': 0.964, 'optflow': 0.979}
+  late_fusion_without                {'color': 93.29, 'depth': 91.95, 'ir': 91.95, 'normal': 93.29, 'optflow': 92.62}
+
+[nvg / test]  n=482
+  unimodal_acc                       {'color': 69.92, 'depth': 80.08, 'ir': 53.53, 'normal': 77.18, 'optflow': 76.76}
+  late_fusion                        84.44
+  oracle                             95.64
+  all_correct                        35.89
+  all_agree                          36.51
+  any_modality_wrong                 64.11
+  lf_wrong_but_some_modality_right   11.2
+  mean_max_prob                      {'color': 0.918, 'depth': 0.953, 'ir': 0.891, 'normal': 0.951, 'optflow': 0.955}
+  late_fusion_without                {'color': 85.06, 'depth': 82.37, 'ir': 84.23, 'normal': 84.02, 'optflow': 81.33}
+Loading pre-trained modality models...
+  Loaded: rgb (experiments/BL2_tsm/Briareo/checkpoints/Briareo/best_tsm_briareo_rgb.pth)
+  Loaded: depth (experiments/BL2_tsm/Briareo/checkpoints/Briareo/best_tsm_briareo_depth.pth)
+  Loaded: ir (experiments/BL2_tsm/Briareo/checkpoints/Briareo/best_tsm_briareo_ir.pth)
+  Loaded: normal (experiments/BL2_tsm/Briareo/checkpoints/Briareo/best_tsm_briareo_normal.pth)
+  Loaded: optflow (experiments/BL2_tsm/Briareo/checkpoints/Briareo/best_tsm_briareo_optflow.pth)
+  Optimizer params: per-class W = 60
+Loading Briareo TRAIN dataset... done.
+Loading Briareo VAL dataset... done.
+Loading Briareo TEST dataset... done.
+Loading Briareo TRAIN dataset... done.
+Loading Briareo VAL dataset... done.
+Loading Briareo TEST dataset... done.
+Loading Briareo TRAIN dataset... done.
+Loading Briareo VAL dataset... done.
+Loading Briareo TEST dataset... done.
+Loading Briareo TRAIN dataset... done.
+Loading Briareo VAL dataset... done.
+Loading Briareo TEST dataset... done.
+Loading Briareo TRAIN dataset... done.
+Loading Briareo VAL dataset... done.
+Loading Briareo TEST dataset... done.
+Train batches: 117
+Val   batches: 27
+Test  batches: 288
+
+[bri / train]  n=936
+  unimodal_acc                       {'rgb': 100.0, 'depth': 100.0, 'ir': 100.0, 'normal': 100.0, 'optflow': 100.0}
+  late_fusion                        100.0
+  oracle                             100.0
+  all_correct                        100.0
+  all_agree                          100.0
+  any_modality_wrong                 0.0
+  lf_wrong_but_some_modality_right   0.0
+  mean_max_prob                      {'rgb': 1.0, 'depth': 1.0, 'ir': 1.0, 'normal': 1.0, 'optflow': 1.0}
+  late_fusion_without                {'rgb': 100.0, 'depth': 100.0, 'ir': 100.0, 'normal': 100.0, 'optflow': 100.0}
+
+[bri / val]  n=216
+  unimodal_acc                       {'rgb': 98.15, 'depth': 98.15, 'ir': 98.15, 'normal': 97.69, 'optflow': 96.76}
+  late_fusion                        98.61
+  oracle                             99.07
+  all_correct                        94.91
+  all_agree                          95.37
+  any_modality_wrong                 5.09
+  lf_wrong_but_some_modality_right   0.46
+  mean_max_prob                      {'rgb': 0.999, 'depth': 0.993, 'ir': 0.989, 'normal': 0.994, 'optflow': 0.982}
+  late_fusion_without                {'rgb': 98.15, 'depth': 98.15, 'ir': 98.61, 'normal': 98.61, 'optflow': 98.61}
+
+[bri / test]  n=288
+  unimodal_acc                       {'rgb': 98.26, 'depth': 96.18, 'ir': 97.92, 'normal': 96.53, 'optflow': 92.36}
+  late_fusion                        98.26
+  oracle                             99.31
+  all_correct                        87.85
+  all_agree                          88.54
+  any_modality_wrong                 12.15
+  lf_wrong_but_some_modality_right   1.04
+  mean_max_prob                      {'rgb': 0.995, 'depth': 0.996, 'ir': 0.994, 'normal': 0.992, 'optflow': 0.989}
+  late_fusion_without                {'rgb': 98.26, 'depth': 98.26, 'ir': 98.26, 'normal': 98.26, 'optflow': 98.26}
+
+saved analysis_fix/train_agreement.json

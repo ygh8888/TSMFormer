@@ -31,6 +31,7 @@ from models.lora_inject import inject_lora
 from datasets.Briareo import Briareo
 from datasets.NVGestures import NVGesture
 import imgaug.augmenters as iaa
+from utils.aligned_sampler import align_train_loaders
 
 SEED = 1994
 def set_seed(seed):
@@ -157,6 +158,7 @@ class CMAFTrainer:
 
         # ── 데이터셋 ──────────────────────────────────────────────────
         self._init_dataloaders()
+        self.train_loaders = align_train_loaders(self.train_loaders)
 
     def _get_in_planes(self, m_cfg):
         if m_cfg.get('optical_flow', False):
@@ -350,6 +352,13 @@ class CMAFTrainer:
                          for n, p in model.named_parameters() if p.requires_grad}
                         for model in self.modal_models
                     ],
+                    # full state (incl. BatchNorm running statistics) of the
+                    # LoRA-adapted backbones, which are trained in train() mode
+                    'modal_state': [
+                        ({k: v.detach().cpu().clone() for k, v in model.state_dict().items()}
+                         if any(p.requires_grad for p in model.parameters()) else None)
+                        for model in self.modal_models
+                    ],
                     'optimizer':  self.optimizer.state_dict(),
                     'accuracy':   val_acc,
                 }, str(ckpt_path))
@@ -380,10 +389,19 @@ class CMAFTrainer:
                 live_std = m0[kB].float().std().item()
                 save_std = ck['lora_state'][0][kB].float().std().item()
                 print(f"  LoRA restored: {restored} params | live_std={live_std:.6f} save_std={save_std:.6f}")
+            if 'modal_state' in ck:
+                n_full = 0
+                for model, msd in zip(self.modal_models, ck['modal_state']):
+                    if msd is not None:
+                        model.load_state_dict(msd); n_full += 1
+                print(f"  Full backbone state restored: {n_full} adapted modalities (incl. BN statistics)")
             # eval 모드 명시적 강제 후 test
             self.cmaf.eval()
             for model in self.modal_models:
                 model.eval()
+            val_chk, _ = self._run_epoch(self.val_loaders, 'val')
+            print(f"  VAL CHECK: {val_chk:.4f}  (logged best {self.best_accuracy:.4f}) "
+                  f"{'OK' if abs(val_chk - self.best_accuracy) < 1e-9 else 'MISMATCH'}")
             test_acc, test_loss = self._run_epoch(self.test_loaders, 'test')
             print(f"  FINAL TEST: acc={test_acc:.4f}  (best val={self.best_accuracy:.4f})")
             print(f"  gate: {self.cmaf.gate_report()}")

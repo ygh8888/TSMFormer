@@ -1,0 +1,27 @@
+===== lora_p0_fix2 시작 2026-10-13 07:13:04 =====
+########## lora_p0_fix2 seed=1994  2026-10-13 07:13:04
+  rc=0  2026-10-13 08:20:24
+  Full backbone state restored: 2 adapted modalities (incl. BN statistics)
+  VAL CHECK: 0.9306  (logged best 0.9306) OK
+  FINAL TEST: acc=0.8485  (best val=0.9306)
+########## lora_p0_fix2 seed=2024  2026-10-13 08:20:25
+  rc=0  2026-10-13 09:27:19
+  Full backbone state restored: 2 adapted modalities (incl. BN statistics)
+  VAL CHECK: 0.9306  (logged best 0.9306) OK
+  FINAL TEST: acc=0.8423  (best val=0.9306)
+########## lora_p0_fix2 seed=777  2026-10-13 09:27:19
+  rc=0  2026-10-13 10:47:19
+  Full backbone state restored: 2 adapted modalities (incl. BN statistics)
+  VAL CHECK: 0.9306  (logged best 0.9306) OK
+  FINAL TEST: acc=0.8506  (best val=0.9306)
+########## lora_p0_fix2 seed=42  2026-10-13 10:47:19
+  rc=0  2026-10-13 13:24:39
+  Full backbone state restored: 2 adapted modalities (incl. BN statistics)
+  VAL CHECK: 0.9306  (logged best 0.9306) OK
+  FINAL TEST: acc=0.8444  (best val=0.9306)
+########## lora_p0_fix2 seed=3407  2026-10-13 13:24:40
+  rc=0  2026-10-13 15:21:13
+  Full backbone state restored: 2 adapted modalities (incl. BN statistics)
+  VAL CHECK: 0.9236  (logged best 0.9236) OK
+  FINAL TEST: acc=0.8444  (best val=0.9236)
+===== lora_p0_fix2 종료 2026-10-13 15:21:13 =====

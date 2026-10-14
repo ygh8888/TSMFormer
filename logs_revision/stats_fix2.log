@@ -1,0 +1,70 @@
+
+==============================================================================
+NVG  val n=149  test n=482  modalities=['color', 'depth', 'ir', 'normal', 'optflow']
+LF five modalities : val  92.62  test  84.44 (407/482)
+LF val-selected    : depth+ir+normal+optflow  val  93.29  test  85.06 (410)   [2 subsets tied at best val; their test range 84.02-85.06]
+LF test-selected   : depth+normal+optflow  test  85.68  (reference only)
+Oracle (any modality correct): 95.64
+
+variant           seed  ep     val    test  Δ(seq)   b   c  McNemar p
+dense_fix          777   1   93.29   84.23      -1  11  12      1.000
+dense_fix         1994   1   93.29   85.48      +5  15  10      0.424
+dense_fix         2024   1   93.29   83.61      -4  12  16      0.572
+lora_p0_fix2        42   1   93.29   84.44      +0  10  10      1.000
+lora_p0_fix2       777   1   93.29   85.06      +3  11   8      0.648
+lora_p0_fix2      1994   1   93.29   84.85      +2  10   8      0.815
+lora_p0_fix2      2024   1   93.29   84.23      -1   9  10      1.000
+lora_p0_fix2      3407   1   92.62   84.44      +0   8   8      1.000
+mbt_bl2in_fix       42   1   93.29   85.48      +5  13   8      0.383
+mbt_bl2in_fix      777   1   93.29   85.48      +5  12   7      0.359
+mbt_bl2in_fix     1994   1   93.29   85.27      +4  11   7      0.481
+mbt_bl2in_fix     2024   1   93.29   85.06      +3  12   9      0.664
+mbt_bl2in_fix     3407   1   93.29   85.48      +5  13   8      0.383
+mbt_gate_fix       777   2   93.29   85.27      +4  11   7      0.481
+mbt_gate_fix      1994   1   93.29   85.89      +7  14   7      0.189
+mbt_gate_fix      2024   1   93.29   85.27      +4  12   8      0.503
+perclass_fix        42   1   92.62   84.23      -1   0   1      1.000
+perclass_fix       777   1   92.62   84.23      -1   0   1      1.000
+perclass_fix      1994   1   92.62   84.44      +0   0   0      1.000
+perclass_fix      2024   1   92.62   84.23      -1   0   1      1.000
+perclass_fix      3407  20   92.62   83.82      -3   1   4      0.375
+
+vs five-modality LF
+variant           n        mean±sd     Δpp            95% CI       p  p_Holm
+dense_fix         3    84.44±0.95    -0.00  [ -1.73, +1.73]   0.981   1.000
+lora_p0_fix2      5    84.61±0.34    +0.17  [ -1.45, +1.74]   0.827   1.000
+mbt_bl2in_fix     5    85.35±0.19    +0.91  [ -0.71, +2.66]   0.277   0.962
+mbt_gate_fix      3    85.48±0.36    +1.04  [ -0.62, +2.77]   0.241   0.962
+perclass_fix      5    84.19±0.23    -0.25  [ -0.66, +0.04]   0.174   0.869
+
+vs val-selected LF (depth+ir+normal+optflow)
+variant           n        mean±sd     Δpp            95% CI       p  p_Holm
+dense_fix         3    84.44±0.95    -0.62  [ -2.28, +0.97]   0.440   1.000
+lora_p0_fix2      5    84.61±0.34    -0.46  [ -1.99, +1.04]   0.569   1.000
+mbt_bl2in_fix     5    85.35±0.19    +0.29  [ -1.29, +1.87]   0.720   1.000
+mbt_gate_fix      3    85.48±0.36    +0.41  [ -1.31, +2.14]   0.674   1.000
+perclass_fix      5    84.19±0.23    -0.87  [ -2.57, +0.75]   0.311   1.000
+
+==============================================================================
+BRI  val n=216  test n=288  modalities=['rgb', 'depth', 'ir', 'normal', 'optflow']
+LF five modalities : val  98.61  test  98.26 (283/288)
+LF val-selected    : rgb+depth+normal  val  98.61  test  98.61 (284)   [10 subsets tied at best val; their test range 98.26-99.31]
+LF test-selected   : rgb+depth+ir  test  99.31  (reference only)
+Oracle (any modality correct): 99.31
+
+variant           seed  ep     val    test  Δ(seq)   b   c  McNemar p
+bri_perclass_fix    42   1   98.61   98.26      +0   0   0      1.000
+bri_perclass_fix   777   1   98.61   98.26      +0   0   0      1.000
+bri_perclass_fix  1994   1   98.61   98.26      +0   0   0      1.000
+bri_perclass_fix  2024   1   98.61   98.26      +0   0   0      1.000
+bri_perclass_fix  3407   1   98.61   98.26      +0   0   0      1.000
+
+vs five-modality LF
+variant           n        mean±sd     Δpp            95% CI       p  p_Holm
+bri_perclass_fix  5    98.26±0.00    +0.00  [ +0.00, +0.00]   1.000   1.000
+
+vs val-selected LF (rgb+depth+normal)
+variant           n        mean±sd     Δpp            95% CI       p  p_Holm
+bri_perclass_fix  5    98.26±0.00    -0.35  [ -1.04, +0.00]   0.718   0.718
+
+saved analysis_fix/stats_summary.json

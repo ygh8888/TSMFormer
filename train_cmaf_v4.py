@@ -30,6 +30,7 @@ from models.fusion_v4 import build_cmaf_v4
 from datasets.Briareo import Briareo
 from datasets.NVGestures import NVGesture
 import imgaug.augmenters as iaa
+from utils.aligned_sampler import align_train_loaders
 
 SEED = 1994
 def set_seed(seed):
@@ -132,6 +133,7 @@ class CMAFTrainer:
 
         # ── 데이터셋 ──────────────────────────────────────────────────
         self._init_dataloaders()
+        self.train_loaders = align_train_loaders(self.train_loaders)
 
     def _get_in_planes(self, m_cfg):
         if m_cfg.get('optical_flow', False):

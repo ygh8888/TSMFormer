@@ -1,0 +1,618 @@
+/data/miniconda3/envs/hand_vision/lib/python3.10/site-packages/pytorch_wavelets/dtcwt/coeffs.py:7: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream
+
+##### perclass_fix seed=1994
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+  Optimizer params: per-class W = 125
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+   {'tag': 'perclass_fix', 'seed': 1994, 'epoch': 1, 'logged_val': 0.9236, 'val_droplast': 0.9236, 'val_full': 0.9262, 'n_val': 149, 'test': 0.8444, 'test_correct': 407, 'n_test': 482}
+
+##### perclass_fix seed=2024
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+  Optimizer params: per-class W = 125
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+   {'tag': 'perclass_fix', 'seed': 2024, 'epoch': 1, 'logged_val': 0.9236, 'val_droplast': 0.9236, 'val_full': 0.9262, 'n_val': 149, 'test': 0.8423, 'test_correct': 406, 'n_test': 482}
+
+##### perclass_fix seed=777
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+  Optimizer params: per-class W = 125
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+   {'tag': 'perclass_fix', 'seed': 777, 'epoch': 1, 'logged_val': 0.9236, 'val_droplast': 0.9236, 'val_full': 0.9262, 'n_val': 149, 'test': 0.8423, 'test_correct': 406, 'n_test': 482}
+
+##### perclass_fix seed=42
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+  Optimizer params: per-class W = 125
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+   {'tag': 'perclass_fix', 'seed': 42, 'epoch': 1, 'logged_val': 0.9236, 'val_droplast': 0.9236, 'val_full': 0.9262, 'n_val': 149, 'test': 0.8423, 'test_correct': 406, 'n_test': 482}
+
+##### perclass_fix seed=3407
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+  Optimizer params: per-class W = 125
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+   {'tag': 'perclass_fix', 'seed': 3407, 'epoch': 20, 'logged_val': 0.9236, 'val_droplast': 0.9236, 'val_full': 0.9262, 'n_val': 149, 'test': 0.8382, 'test_correct': 404, 'n_test': 482}
+
+##### lora_p0_fix2 seed=1994
+Loading pre-trained modality models...
+    -> LoRA injected: 79.9K trainable
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+    -> LoRA injected: 79.9K trainable
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+  Optimizer params: cmaf=2.647M (lr=0.0001) + lora=159.7K (lr=2e-05)
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+  LoRA params restored: full state of 2 adapted backbones
+   {'tag': 'lora_p0_fix2', 'seed': 1994, 'epoch': 1, 'logged_val': 0.9306, 'val_droplast': 0.9306, 'val_full': 0.9329, 'n_val': 149, 'test': 0.8485, 'test_correct': 409, 'n_test': 482}
+
+##### lora_p0_fix2 seed=2024
+Loading pre-trained modality models...
+    -> LoRA injected: 79.9K trainable
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+    -> LoRA injected: 79.9K trainable
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+  Optimizer params: cmaf=2.647M (lr=0.0001) + lora=159.7K (lr=2e-05)
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+  LoRA params restored: full state of 2 adapted backbones
+   {'tag': 'lora_p0_fix2', 'seed': 2024, 'epoch': 1, 'logged_val': 0.9306, 'val_droplast': 0.9306, 'val_full': 0.9329, 'n_val': 149, 'test': 0.8423, 'test_correct': 406, 'n_test': 482}
+
+##### lora_p0_fix2 seed=777
+Loading pre-trained modality models...
+    -> LoRA injected: 79.9K trainable
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+    -> LoRA injected: 79.9K trainable
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+  Optimizer params: cmaf=2.647M (lr=0.0001) + lora=159.7K (lr=2e-05)
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+  LoRA params restored: full state of 2 adapted backbones
+   {'tag': 'lora_p0_fix2', 'seed': 777, 'epoch': 1, 'logged_val': 0.9306, 'val_droplast': 0.9306, 'val_full': 0.9329, 'n_val': 149, 'test': 0.8506, 'test_correct': 410, 'n_test': 482}
+
+##### lora_p0_fix2 seed=42
+Loading pre-trained modality models...
+    -> LoRA injected: 79.9K trainable
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+    -> LoRA injected: 79.9K trainable
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+  Optimizer params: cmaf=2.647M (lr=0.0001) + lora=159.7K (lr=2e-05)
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+  LoRA params restored: full state of 2 adapted backbones
+   {'tag': 'lora_p0_fix2', 'seed': 42, 'epoch': 1, 'logged_val': 0.9306, 'val_droplast': 0.9306, 'val_full': 0.9329, 'n_val': 149, 'test': 0.8444, 'test_correct': 407, 'n_test': 482}
+
+##### lora_p0_fix2 seed=3407
+Loading pre-trained modality models...
+    -> LoRA injected: 79.9K trainable
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+    -> LoRA injected: 79.9K trainable
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+  Optimizer params: cmaf=2.647M (lr=0.0001) + lora=159.7K (lr=2e-05)
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+  LoRA params restored: full state of 2 adapted backbones
+   {'tag': 'lora_p0_fix2', 'seed': 3407, 'epoch': 1, 'logged_val': 0.9236, 'val_droplast': 0.9236, 'val_full': 0.9262, 'n_val': 149, 'test': 0.8444, 'test_correct': 407, 'n_test': 482}
+
+##### mbt_bl2in_fix seed=1994
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+   {'tag': 'mbt_bl2in_fix', 'seed': 1994, 'epoch': 1, 'logged_val': 0.9306, 'val_droplast': 0.9306, 'val_full': 0.9329, 'n_val': 149, 'test': 0.8527, 'test_correct': 411, 'n_test': 482}
+
+##### mbt_bl2in_fix seed=2024
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+   {'tag': 'mbt_bl2in_fix', 'seed': 2024, 'epoch': 1, 'logged_val': 0.9306, 'val_droplast': 0.9306, 'val_full': 0.9329, 'n_val': 149, 'test': 0.8506, 'test_correct': 410, 'n_test': 482}
+
+##### mbt_bl2in_fix seed=777
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+   {'tag': 'mbt_bl2in_fix', 'seed': 777, 'epoch': 1, 'logged_val': 0.9306, 'val_droplast': 0.9306, 'val_full': 0.9329, 'n_val': 149, 'test': 0.8548, 'test_correct': 412, 'n_test': 482}
+
+##### mbt_bl2in_fix seed=42
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+   {'tag': 'mbt_bl2in_fix', 'seed': 42, 'epoch': 1, 'logged_val': 0.9306, 'val_droplast': 0.9306, 'val_full': 0.9329, 'n_val': 149, 'test': 0.8548, 'test_correct': 412, 'n_test': 482}
+
+##### mbt_bl2in_fix seed=3407
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+   {'tag': 'mbt_bl2in_fix', 'seed': 3407, 'epoch': 1, 'logged_val': 0.9306, 'val_droplast': 0.9306, 'val_full': 0.9329, 'n_val': 149, 'test': 0.8548, 'test_correct': 412, 'n_test': 482}
+
+##### mbt_gate_fix seed=1994
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+   {'tag': 'mbt_gate_fix', 'seed': 1994, 'epoch': 1, 'logged_val': 0.9306, 'val_droplast': 0.9306, 'val_full': 0.9329, 'n_val': 149, 'test': 0.8589, 'test_correct': 414, 'n_test': 482}
+
+##### mbt_gate_fix seed=2024
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+   {'tag': 'mbt_gate_fix', 'seed': 2024, 'epoch': 1, 'logged_val': 0.9306, 'val_droplast': 0.9306, 'val_full': 0.9329, 'n_val': 149, 'test': 0.8527, 'test_correct': 411, 'n_test': 482}
+
+##### mbt_gate_fix seed=777
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+   {'tag': 'mbt_gate_fix', 'seed': 777, 'epoch': 2, 'logged_val': 0.9306, 'val_droplast': 0.9306, 'val_full': 0.9329, 'n_val': 149, 'test': 0.8527, 'test_correct': 411, 'n_test': 482}
+
+##### dense_fix seed=1994
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+   {'tag': 'dense_fix', 'seed': 1994, 'epoch': 1, 'logged_val': 0.9306, 'val_droplast': 0.9306, 'val_full': 0.9329, 'n_val': 149, 'test': 0.8548, 'test_correct': 412, 'n_test': 482}
+
+##### dense_fix seed=2024
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+   {'tag': 'dense_fix', 'seed': 2024, 'epoch': 1, 'logged_val': 0.9306, 'val_droplast': 0.9306, 'val_full': 0.9329, 'n_val': 149, 'test': 0.8361, 'test_correct': 403, 'n_test': 482}
+
+##### dense_fix seed=777
+Loading pre-trained modality models...
+  Loaded: color (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_color.pth)
+  Loaded: depth (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_depth.pth)
+  Loaded: ir (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_ir.pth)
+  Loaded: normal (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_normal.pth)
+  Loaded: optflow (experiments/BL5_revision/NVGestures/checkpoints/NVGestures/best_rev_nvgestures_optflow.pth)
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Loading NVGestures TRAIN dataset... done.
+Loading NVGestures VAL dataset... done.
+Loading NVGestures TEST dataset... done.
+Train batches: 112
+Val   batches: 18
+Test  batches: 482
+   {'tag': 'dense_fix', 'seed': 777, 'epoch': 1, 'logged_val': 0.9306, 'val_droplast': 0.9306, 'val_full': 0.9329, 'n_val': 149, 'test': 0.8423, 'test_correct': 406, 'n_test': 482}
+
+==========================================================================================
+tag                 seed  ep  val(log)  val(144)  val(all)    test     n
+perclass_fix        1994   1    0.9236    0.9236    0.9262   84.44   407
+perclass_fix        2024   1    0.9236    0.9236    0.9262   84.23   406
+perclass_fix         777   1    0.9236    0.9236    0.9262   84.23   406
+perclass_fix          42   1    0.9236    0.9236    0.9262   84.23   406
+perclass_fix        3407  20    0.9236    0.9236    0.9262   83.82   404
+lora_p0_fix2        1994   1    0.9306    0.9306    0.9329   84.85   409
+lora_p0_fix2        2024   1    0.9306    0.9306    0.9329   84.23   406
+lora_p0_fix2         777   1    0.9306    0.9306    0.9329   85.06   410
+lora_p0_fix2          42   1    0.9306    0.9306    0.9329   84.44   407
+lora_p0_fix2        3407   1    0.9236    0.9236    0.9262   84.44   407
+mbt_bl2in_fix       1994   1    0.9306    0.9306    0.9329   85.27   411
+mbt_bl2in_fix       2024   1    0.9306    0.9306    0.9329   85.06   410
+mbt_bl2in_fix        777   1    0.9306    0.9306    0.9329   85.48   412
+mbt_bl2in_fix         42   1    0.9306    0.9306    0.9329   85.48   412
+mbt_bl2in_fix       3407   1    0.9306    0.9306    0.9329   85.48   412
+mbt_gate_fix        1994   1    0.9306    0.9306    0.9329   85.89   414
+mbt_gate_fix        2024   1    0.9306    0.9306    0.9329   85.27   411
+mbt_gate_fix         777   2    0.9306    0.9306    0.9329   85.27   411
+dense_fix           1994   1    0.9306    0.9306    0.9329   85.48   412
+dense_fix           2024   1    0.9306    0.9306    0.9329   83.61   403
+dense_fix            777   1    0.9306    0.9306    0.9329   84.23   406
